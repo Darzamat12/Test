@@ -12,10 +12,10 @@ const Title = styled.Text`
 
 const Container = styled.ScrollView`
   flex: 1;
-  padding: 0 8px;
+  padding: 24px 8px;
 `;
 
-export const HomeScreen = () => {
+export const HomeScreen = ({navigation}) => {
   const [movies, setMovies] = useState([]);
   axios
     .get('https://wookie.codesubmit.io/movies', {
@@ -31,9 +31,9 @@ export const HomeScreen = () => {
 
   return (
     <Container>
-      <Title>WOOKIE{'\n'} MOVIES</Title>
+      <Title onPress={() => console.log(movies)}>WOOKIE{'\n'} MOVIES</Title>
       {genres.map(el => (
-        <Genre genre={el} movies={movies} />
+        <Genre navigation={navigation} genre={el} movies={movies} />
       ))}
     </Container>
   );

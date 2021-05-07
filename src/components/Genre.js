@@ -29,7 +29,7 @@ export const Genre = ({genre, movies, navigation}) => {
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <TouchableOpacity
-            onClick={() => navigation.navigate('Movie', {movie: item})}>
+            onPress={() => navigation.navigate('Movie', {movie: item})}>
             <Poster source={{uri: item.poster}} />
           </TouchableOpacity>
         )}

@@ -1,13 +1,13 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 
 import {AppRoot} from './src/routes/routes';
 
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <AppRoot />
-    </SafeAreaView>
+    </View>
   );
 };
 
