@@ -13,8 +13,8 @@ import styled from 'styled-components';
 import search from '../../assets/search.png';
 
 const Container = styled.View`
-  flex:1,
-  padding-top:60px;
+  flex: 1;
+  padding-top: 60px;
 `;
 
 const Poster = styled.Image`
@@ -35,7 +35,7 @@ const PosterContainer = styled.TouchableOpacity`
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-color: #656565;
-  margin-left: 8;
+  margin-left: 8px;
 `;
 
 export const SearchScreen = ({navigation}) => {

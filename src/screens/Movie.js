@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import {View} from 'react-native';
+import {SharedElement} from 'react-navigation-shared-element';
 import styled from 'styled-components';
 import goldenStar from '../../assets/goldenstar.png';
 import star from '../../assets/star.png';
@@ -29,8 +23,8 @@ const Title = styled.Text`
   margin-left: 8px;
 `;
 const StarIcon = styled.Image`
-  height: 20;
-  width: 20;
+  height: 20px;
+  width: 20px;
   margin: 0 4px;
 `;
 const StarsContainer = styled.View`
@@ -73,7 +67,9 @@ export const MovieScreen = ({navigation, route}) => {
 
             elevation: 19,
           }}>
-          <Poster source={{uri: movie.poster}} />
+          <SharedElement id={`item.${movie.id}.image`}>
+            <Poster source={{uri: movie.poster}} />
+          </SharedElement>
         </View>
         <Title>{`${movie.title}(${movie.imdb_rating})`}</Title>
       </BackDrop>

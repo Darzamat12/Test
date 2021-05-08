@@ -1,5 +1,6 @@
 import React from 'react';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {SharedElement} from 'react-navigation-shared-element';
 import styled from 'styled-components';
 
 const Title = styled.Text`
@@ -30,7 +31,9 @@ export const Genre = ({genre, movies, navigation}) => {
         renderItem={({item}) => (
           <TouchableOpacity
             onPress={() => navigation.navigate('Movie', {movie: item})}>
-            <Poster source={{uri: item.poster}} />
+            <SharedElement id={`item.${item.id}.image`}>
+              <Poster source={{uri: item.poster}} />
+            </SharedElement>
           </TouchableOpacity>
         )}
         showsHorizontalScrollIndicator={false}
