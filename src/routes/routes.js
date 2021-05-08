@@ -7,6 +7,10 @@ import {createSharedElementStackNavigator} from 'react-navigation-shared-element
 import {HomeScreen} from '../screens/Home';
 import {SearchScreen} from '../screens/Search';
 import {MovieScreen} from '../screens/Movie';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Image} from 'react-native';
+import home from '../../assets/home.png';
+import search from '../../assets/search.png';
 
 const Tab = createBottomTabNavigator();
 
@@ -86,8 +90,24 @@ export const AppRoot = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeSharedElementStackNavigator} />
-        <Tab.Screen name="Search" component={SearchStackScreen} />
+        <Tab.Screen
+          name="Home"
+          options={{
+            tabBarIcon: () => (
+              <Image source={home} style={{width: 30, height: 30}} />
+            ),
+          }}
+          component={HomeSharedElementStackNavigator}
+        />
+        <Tab.Screen
+          name="Search"
+          options={{
+            tabBarIcon: () => (
+              <Image source={search} style={{width: 30, height: 30}} />
+            ),
+          }}
+          component={SearchStackScreen}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
