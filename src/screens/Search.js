@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import styled from 'styled-components';
+
 import search from '../../assets/search.png';
 
 const Container = styled.View`

@@ -2,72 +2,76 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
+
 import {HomeScreen} from '../screens/Home';
 import {SearchScreen} from '../screens/Search';
 import {MovieScreen} from '../screens/Movie';
-import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
 const Tab = createBottomTabNavigator();
-
-const HomeStack = createStackNavigator();
-
-const HomeStackScreen = () => {
-  return (
-    <HomeStack.Navigator screenOptions={{headerShown: false}}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="Movie" component={MovieScreen} />
-    </HomeStack.Navigator>
-  );
-};
-export const iosTransitionSpec = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 10,
-    restSpeedThreshold: 10,
-  },
-};
 
 const SearchStack = createStackNavigator();
 
 const SharedElementStack = createSharedElementStackNavigator();
 
-function HomeSharedElementStackNavigator({navigation}) {
+const HomeSharedElementStackNavigator = () => {
   return (
     <SharedElementStack.Navigator
       screenOptions={{
-        transitionSpec: {
-          open: {animation: 'timing', config: {duration: 1000}},
-          close: {animation: 'timing', config: {duration: 500}},
-        },
-        cardStyleInterpolator: ({current: {progress}}) => ({
-          cardStyle: {
-            opacity: progress,
-          },
-        }),
         headerShown: false,
       }}>
       <SharedElementStack.Screen name="Home" component={HomeScreen} />
       <SharedElementStack.Screen
         name="Movie"
         component={MovieScreen}
-        sharedElementsConfig={(route, otherRoute, showing) => {
-          const {movie} = route.params;
-          if (route.name === 'Movie' && showing) {
-            return [
-              {
-                id: `item.${movie.id}.image`,
+        options={{
+          useNativeDriver: true,
+
+          transitionSpec: {
+            open: {
+              animation: 'timing',
+              config: {
+                stiffness: 1000,
+                damping: 500,
+                mass: 3,
+                overshootClamping: true,
+                restDisplacementThreshold: 10,
+                restSpeedThreshold: 10,
+                duration: 1000,
               },
-            ];
-          }
+            },
+            close: {
+              animation: 'timing',
+              config: {
+                stiffness: 1000,
+                damping: 500,
+                mass: 3,
+                overshootClamping: true,
+                restDisplacementThreshold: 10,
+                restSpeedThreshold: 10,
+                duration: 500,
+              },
+            },
+          },
+          cardStyleInterpolator: ({current: {progress}}) => ({
+            cardStyle: {
+              opacity: progress,
+            },
+          }),
+        }}
+        sharedElementsConfig={(route, otherRoute, showing) => {
+          const {movie, genre} = route.params;
+
+          return [
+            {
+              id: `item.${movie.id}${genre}.image`,
+            },
+          ];
         }}
       />
     </SharedElementStack.Navigator>
   );
-}
+};
 
 const SearchStackScreen = () => {
   return (

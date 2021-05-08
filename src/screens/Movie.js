@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
 import styled from 'styled-components';
+
 import goldenStar from '../../assets/goldenstar.png';
 import star from '../../assets/star.png';
 
@@ -21,6 +22,7 @@ const Title = styled.Text`
   color: white;
   margin-bottom: 8px;
   margin-left: 8px;
+  width: 60%;
 `;
 const StarIcon = styled.Image`
   height: 20px;
@@ -44,8 +46,8 @@ const Info = styled.Text`
   margin-bottom: 10px;
 `;
 
-export const MovieScreen = ({navigation, route}) => {
-  const {movie} = route.params;
+export const MovieScreen = ({route}) => {
+  const {movie, genre} = route.params;
   const starsRating = Math.round(movie.imdb_rating / 2);
   return (
     <View style={{flex: 1}}>
@@ -64,14 +66,13 @@ export const MovieScreen = ({navigation, route}) => {
             marginLeft: 32,
             flexDirection: 'row',
             alignItems: 'flex-end',
-
             elevation: 19,
           }}>
-          <SharedElement id={`item.${movie.id}.image`}>
-            <Poster source={{uri: movie.poster}} />
+          <SharedElement id={`item.${movie.id}${genre}.image`}>
+            <Poster source={{uri: movie?.poster}} />
           </SharedElement>
         </View>
-        <Title>{`${movie.title}(${movie.imdb_rating})`}</Title>
+        <Title>{`${movie?.title}(${movie?.imdb_rating})`}</Title>
       </BackDrop>
       <StarsContainer>
         {new Array(5)
@@ -85,11 +86,11 @@ export const MovieScreen = ({navigation, route}) => {
           )}
       </StarsContainer>
       <Main>
-        <Info>{`${new Date(movie.released_on).getFullYear()} | ${
+        <Info>{`${new Date(movie?.released_on).getFullYear()} | ${
           movie.length
-        } | ${movie.director}`}</Info>
-        <Info>{`cast: ${movie.cast.join(', ')}`}</Info>
-        <Info>{movie.overview}</Info>
+        } | ${movie?.director}`}</Info>
+        <Info>{`cast: ${movie?.cast.join(', ')}`}</Info>
+        <Info>{movie?.overview}</Info>
       </Main>
     </View>
   );

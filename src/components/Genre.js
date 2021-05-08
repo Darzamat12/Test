@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, TouchableOpacity} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
 import styled from 'styled-components';
 
@@ -30,8 +30,10 @@ export const Genre = ({genre, movies, navigation}) => {
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('Movie', {movie: item})}>
-            <SharedElement id={`item.${item.id}.image`}>
+            onPress={() =>
+              navigation.navigate('Movie', {movie: item, genre: genre})
+            }>
+            <SharedElement id={`item.${item.id}${genre}.image`}>
               <Poster source={{uri: item.poster}} />
             </SharedElement>
           </TouchableOpacity>
